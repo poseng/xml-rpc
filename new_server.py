@@ -24,11 +24,11 @@ server.register_function(list_contents)
 
 # KML conversion
 def kml_converter():
-	path_to_db = os.path.join(os.getcwd(), 'DB')
-	path_to_data = os.path.join(os.getcwd(), 'Data')
+	path_to_db = os.path.join(os.getcwd(), 'Data/trajectories')
+	path_to_data = os.path.join(os.getcwd(), 'Output')
 	files = os.listdir(path_to_db)
 
-	kml_conversion_status  = ''
+	kml_conversion_status = ''
 	for file in files:
 		if file.endswith('.json'):
 			path_to_json = os.path.join(path_to_db, file)
@@ -36,7 +36,8 @@ def kml_converter():
 			t1_start = process_time()
 			kml_conversion_status = convert_to_kml(path_to_json, path_to_kml)
 			t1_stop = process_time()
-			return "Converting time in seconds: {}".format(t1_stop-t1_start)
+			print("Converting time in seconds: {}".format(t1_stop-t1_start))
+	return "KML creation compelted!"
 server.register_function(kml_converter)        
 try:
     print('Use Control-C to exit')

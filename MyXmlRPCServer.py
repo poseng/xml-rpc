@@ -22,8 +22,8 @@ with SimpleXMLRPCServer(('localhost', 8000), requestHandler=RequestHandler) as s
 	server.register_function(adder_function, 'add')
 
 	def kml_converter():
-		path_to_db = os.path.joint(os.getcwd(), 'DB')
-		path_to_data = os.path.join(os.getcwd(), 'Data')
+		path_to_db = os.path.joint(os.getcwd(), 'data/trajectories')
+		path_to_data = os.path.join(os.getcwd(), 'Output')
 		files = os.listdir(path_to_db)
 
 		kml_conversion_status  = ''
