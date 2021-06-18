@@ -1,0 +1,3 @@
+/home/ps/Development/xml-rpc/build/CMakeFiles/rebuild_cache.dir
+/home/ps/Development/xml-rpc/build/CMakeFiles/edit_cache.dir
+/home/ps/Development/xml-rpc/build/CMakeFiles/converter.dir

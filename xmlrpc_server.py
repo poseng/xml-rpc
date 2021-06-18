@@ -1,3 +1,4 @@
+import json
 import logging
 import os
 from time import process_time
@@ -7,22 +8,24 @@ from xmlrpc.server import SimpleXMLRPCRequestHandler
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
 
+# Retreive network configutation
+HOST =  ''
+PORT = 0
+with open('config.json') as config_file:
+	config = json.load(config_file)
+	HOST = config["HOST"]
+	PORT = config["PORT"]
+
 # Restrict to a particular path.
 class RequestHandler(SimpleXMLRPCRequestHandler):
 	rpc_paths = ('/', '/RPC2', )
-	# restrcited access to data dir that store trajectory in json
-	
-server = SimpleXMLRPCServer(('localhost', 9000),requestHandler=RequestHandler, logRequests=True)
 
-# Expose a function
-def list_contents(dir_name):
-	logging.debug('list_contents(%s)', dir_name)
-	return os.listdir(dir_name)
-
-
-server.register_function(list_contents)
+# Create a simple XML-RPC server	
+server = SimpleXMLRPCServer((HOST, PORT),requestHandler=RequestHandler, logRequests=True)
 
 # KML conversion
+# This function explore the directory containig the .json files and
+# create the equivalent .kml files and save them in the "Output" directory.
 def kml_converter():
 	path_to_db = os.path.join(os.getcwd(), 'Data/trajectories')
 	path_to_data = os.path.join(os.getcwd(), 'Output')
@@ -38,9 +41,11 @@ def kml_converter():
 			t1_stop = process_time()
 			print("Converting time in seconds: {}".format(t1_stop-t1_start))
 	return "KML creation compelted!"
+# add the kml_converter function to the server registry.
 server.register_function(kml_converter)        
 try:
     print('Use Control-C to exit')
+	# Keep the server listening.
     server.serve_forever()
 except KeyboardInterrupt:
     print('Exiting')

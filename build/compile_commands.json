@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/ps/Development/xml-rpc/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9    -g   -std=gnu++11 -o CMakeFiles/converter.dir/converter.cpp.o -c /home/ps/Development/xml-rpc/converter.cpp",
+  "file": "/home/ps/Development/xml-rpc/converter.cpp"
+}
+]
